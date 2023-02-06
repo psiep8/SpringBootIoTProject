@@ -1,10 +1,15 @@
 package com.example.projectiot.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
+@Builder
+@Data
+@RequiredArgsConstructor
 @Entity
 @Table(name = "statistiche_giornaliere")
 public class StatisticheGiornaliere implements Serializable {
@@ -15,22 +20,22 @@ public class StatisticheGiornaliere implements Serializable {
     private long idStatisticheGiornaliere;
 
     @Column(name = "attivo")
-    private double attivoGiornaliero;
+    private Integer attivoGiornaliero;
 
     @Column(name = "inattivo")
-    private double inattivoGiornaliero;
+    private Integer inattivoGiornaliero;
 
     @Column(name = "troppo_vicino")
-    private double troppoVicinoGiornaliero;
+    private Integer troppoVicinoGiornaliero;
 
     @Column(name = "troppo_lontano")
-    private double troppoLontanoGiornaliero;
+    private Integer troppoLontanoGiornaliero;
 
     @Column(name = "num_pause_brevi")
-    private int numeroPauseBreviGiornaliere;
+    private Integer numeroPauseBreviGiornaliere;
 
     @Column(name = "num_pause_riposo")
-    private int numeroPauseRiposoGiornaliere;
+    private Integer numeroPauseRiposoGiornaliere;
 
     @Column(name = "giorno")
     private LocalDate giorno;
@@ -39,102 +44,5 @@ public class StatisticheGiornaliere implements Serializable {
     @JoinColumn(name = "dipendente_id")
     private Dipendente dipendente;
 
-    public StatisticheGiornaliere() {
-    }
-
-    public StatisticheGiornaliere(double attivoGiornaliero, double inattivoGiornaliero, double troppoVicinoGiornaliero, double troppoLontanoGiornaliero, int numeroPauseBreviGiornaliere, int numeroPauseRiposoGiornaliere, LocalDate giorno, Dipendente dipendente) {
-        this.attivoGiornaliero = attivoGiornaliero;
-        this.inattivoGiornaliero = inattivoGiornaliero;
-        this.troppoVicinoGiornaliero = troppoVicinoGiornaliero;
-        this.troppoLontanoGiornaliero = troppoLontanoGiornaliero;
-        this.numeroPauseBreviGiornaliere = numeroPauseBreviGiornaliere;
-        this.numeroPauseRiposoGiornaliere = numeroPauseRiposoGiornaliere;
-        this.giorno = giorno;
-        this.dipendente = dipendente;
-    }
-
-    public StatisticheGiornaliere(long idStatisticheGiornaliere, double attivoGiornaliero, double inattivoGiornaliero, double troppoVicinoGiornaliero, double troppoLontanoGiornaliero, int numeroPauseBreviGiornaliere, int numeroPauseRiposoGiornaliere, LocalDate giorno, Dipendente dipendente) {
-        this.idStatisticheGiornaliere = idStatisticheGiornaliere;
-        this.attivoGiornaliero = attivoGiornaliero;
-        this.inattivoGiornaliero = inattivoGiornaliero;
-        this.troppoVicinoGiornaliero = troppoVicinoGiornaliero;
-        this.troppoLontanoGiornaliero = troppoLontanoGiornaliero;
-        this.numeroPauseBreviGiornaliere = numeroPauseBreviGiornaliere;
-        this.numeroPauseRiposoGiornaliere = numeroPauseRiposoGiornaliere;
-        this.giorno = giorno;
-        this.dipendente = dipendente;
-    }
-
-    public long getIdStatisticheGiornaliere() {
-        return idStatisticheGiornaliere;
-    }
-
-    public void setIdStatisticheGiornaliere(long idStatisticheGiornaliere) {
-        this.idStatisticheGiornaliere = idStatisticheGiornaliere;
-    }
-
-    public double getAttivoGiornaliero() {
-        return attivoGiornaliero;
-    }
-
-    public void setAttivoGiornaliero(double attivoGiornaliero) {
-        this.attivoGiornaliero = attivoGiornaliero;
-    }
-
-    public double getInattivoGiornaliero() {
-        return inattivoGiornaliero;
-    }
-
-    public void setInattivoGiornaliero(double inattivoGiornaliero) {
-        this.inattivoGiornaliero = inattivoGiornaliero;
-    }
-
-    public double getTroppoVicinoGiornaliero() {
-        return troppoVicinoGiornaliero;
-    }
-
-    public void setTroppoVicinoGiornaliero(double troppoVicinoGiornaliero) {
-        this.troppoVicinoGiornaliero = troppoVicinoGiornaliero;
-    }
-
-    public double getTroppoLontanoGiornaliero() {
-        return troppoLontanoGiornaliero;
-    }
-
-    public void setTroppoLontanoGiornaliero(double troppoLontanoGiornaliero) {
-        this.troppoLontanoGiornaliero = troppoLontanoGiornaliero;
-    }
-
-    public int getNumeroPauseBreviGiornaliere() {
-        return numeroPauseBreviGiornaliere;
-    }
-
-    public void setNumeroPauseBreviGiornaliere(int numeroPauseBreviGiornaliere) {
-        this.numeroPauseBreviGiornaliere = numeroPauseBreviGiornaliere;
-    }
-
-    public int getNumeroPauseRiposoGiornaliere() {
-        return numeroPauseRiposoGiornaliere;
-    }
-
-    public void setNumeroPauseRiposoGiornaliere(int numeroPauseRiposoGiornaliere) {
-        this.numeroPauseRiposoGiornaliere = numeroPauseRiposoGiornaliere;
-    }
-
-    public LocalDate getGiorno() {
-        return giorno;
-    }
-
-    public void setGiorno(LocalDate giorno) {
-        this.giorno = giorno;
-    }
-
-    public Dipendente getDipendente() {
-        return dipendente;
-    }
-
-    public void setDipendente(Dipendente dipendente) {
-        this.dipendente = dipendente;
-    }
 }
 

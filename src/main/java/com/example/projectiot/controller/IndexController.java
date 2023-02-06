@@ -1,25 +1,26 @@
 package com.example.projectiot.controller;
 
 import com.example.projectiot.dto.DatiUtente;
+import com.example.projectiot.service.StatisticheGiornaliereService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
 public class IndexController {
-    @GetMapping(value = "/test-connection-boolean/{temp}")
-    public Boolean isPowerOnStatusRequired(@PathVariable String temp) {
-        return Double.parseDouble(temp) > 2;
+
+    private final StatisticheGiornaliereService statisticheGiornaliereService;
+
+    public IndexController(StatisticheGiornaliereService statisticheGiornaliereService) {
+        this.statisticheGiornaliereService = statisticheGiornaliereService;
     }
 
-    @GetMapping(value = "/welcome")
-    public String provaProva() {
-        return "Ciao a tutti!";
-    }
+    @PostMapping(value = "/data-connection", consumes = "application/json")
+    public void getDataFromArduino(@RequestBody DatiUtente postData) {
+        System.out.println("è arrivato il" + postData );
+        System.out.println("è arrivato il" + postData.getTroppoVicino() );
 
-    @PostMapping(value = "/test-connection-test", consumes = "application/json")
-    public String isConnectionEnstablished(@RequestBody DatiUtente postData) {
-        System.out.println("è arrivato il" + postData + postData.toString());
-        System.out.println("è arrivato il" + postData.getNumPauseLunghe());
-        return postData.toString();
+        statisticheGiornaliereService.getDatiAlMinuto(postData);
+
+        //return postData;
     }
 }

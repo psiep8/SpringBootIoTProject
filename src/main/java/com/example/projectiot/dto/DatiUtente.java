@@ -1,13 +1,16 @@
 package com.example.projectiot.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
+
 public class DatiUtente {
-    private String troppoVicino;
-    private String troppoLontano;
-    private String tempoAttivo;
-    private String tempoInattivo;
-    private String numPauseBrevi;
-    private String numPauseLunghe;
+    private Integer troppoVicino;
+    private Integer troppoLontano;
+    private Integer tempoAttivo;
+    private Integer tempoInattivo;
+    private Integer numPauseBrevi;
+    private Integer numPauseLunghe;
 }
