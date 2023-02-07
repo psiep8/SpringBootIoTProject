@@ -20,11 +20,7 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
     private final StatisticheGiornaliereRepository statisticheGiornaliereRepository;
     private final StatisticheMensiliRepository statisticheMensiliRepository;
 
-    @Override
-    public void findStatisticheGiornaliereByMeseAndSave(Integer month) {
 
-    }
-/*
     @Override
     public void findStatisticheGiornaliereByMeseAndSave(Integer month) {
         Integer numeroPauseBreviMensili = 0;
@@ -33,22 +29,23 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
         Integer numeroInattivo = 0;
         Integer numeroVicino = 0;
         Integer numeroLontano = 0;
-        Integer dayOfMonth = LocalDate.now().minusMonths(1).lengthOfMonth();
-        StatisticheGiornaliere[] stats = new StatisticheGiornaliere[dayOfMonth];
+        StatisticheGiornaliere[] stats;
+        int dayOfMonth = LocalDate.now().minusMonths(1).lengthOfMonth();
         if (LocalDate.now().getDayOfMonth() == 7) {
             for (int i = 0; i < dayOfMonth; i++) {
-                stats[i] = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i + 1));
-            }
-            for (int j = 0; j < dayOfMonth; j++) {
-                numeroPauseBreviMensili += stats[j].getNumeroPauseBreviGiornaliere();
-                numeroPauseRiposoMensili += stats[j].getNumeroPauseRiposoGiornaliere();
-                numeroInattivo += stats[j].getInattivoGiornaliero();
-                numeroAttivo += stats[j].getAttivoGiornaliero();
-                numeroLontano += stats[j].getTroppoLontanoGiornaliero();
-                numeroVicino += stats[j].getTroppoVicinoGiornaliero();
+                stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i + 1));
+
+                for (StatisticheGiornaliere ss : stats) {
+                    numeroAttivo += ss.getAttivoGiornaliero();
+                    numeroPauseRiposoMensili += ss.getNumeroPauseRiposoGiornaliere();
+                    numeroInattivo += ss.getInattivoGiornaliero();
+                    numeroPauseBreviMensili += ss.getNumeroPauseBreviGiornaliere();
+                    numeroLontano += ss.getTroppoLontanoGiornaliero();
+                    numeroVicino += ss.getTroppoVicinoGiornaliero();
+                }
             }
             StatisticheMensili statisticheMensili = StatisticheMensili.builder()
-                    .mese(LocalDate.now().minusMonths(1).getMonth().toString())
+                    .mese(LocalDate.now().minusMonths(1).getMonth().name())
                     .numeroPauseBreviMensili(numeroPauseBreviMensili)
                     .numeroPauseRiposoMensili(numeroPauseRiposoMensili)
                     .attivoMensile(numeroAttivo)
@@ -60,5 +57,5 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
         }
     }
 
-*/
+
 }
