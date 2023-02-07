@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 @Builder
 @Data
-@RequiredArgsConstructor
 @Entity
 @Table(name = "statistiche_settimanali")
 public class StatisticheSettimanali implements Serializable {
@@ -47,5 +46,33 @@ public class StatisticheSettimanali implements Serializable {
     @JoinColumn(name = "dipendente_id")
     private Dipendente dipendente;
 
+    public StatisticheSettimanali() {
+
+    }
+
+    public StatisticheSettimanali(long idStatisticheSettimanali, Integer attivoSettimanale, Integer inattivoSettimanale, Integer troppoVicinoSettimanale, Integer troppoLontanoSettimanale, Integer numeroPauseBreviSettimanali, Integer numeroPauseRiposoSettimanali, LocalDate dataInizio, LocalDate dataFine, Dipendente dipendente) {
+        this.idStatisticheSettimanali = idStatisticheSettimanali;
+        this.attivoSettimanale = attivoSettimanale;
+        this.inattivoSettimanale = inattivoSettimanale;
+        this.troppoVicinoSettimanale = troppoVicinoSettimanale;
+        this.troppoLontanoSettimanale = troppoLontanoSettimanale;
+        this.numeroPauseBreviSettimanali = numeroPauseBreviSettimanali;
+        this.numeroPauseRiposoSettimanali = numeroPauseRiposoSettimanali;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.dipendente = dipendente;
+    }
+
+    public StatisticheSettimanali(Integer attivoSettimanale, Integer inattivoSettimanale, Integer troppoVicinoSettimanale, Integer troppoLontanoSettimanale, Integer numeroPauseBreviSettimanali, Integer numeroPauseRiposoSettimanali, LocalDate dataInizio, LocalDate dataFine, Dipendente dipendente) {
+        this.attivoSettimanale = attivoSettimanale;
+        this.inattivoSettimanale = inattivoSettimanale;
+        this.troppoVicinoSettimanale = troppoVicinoSettimanale;
+        this.troppoLontanoSettimanale = troppoLontanoSettimanale;
+        this.numeroPauseBreviSettimanali = numeroPauseBreviSettimanali;
+        this.numeroPauseRiposoSettimanali = numeroPauseRiposoSettimanali;
+        this.dataInizio = dataInizio;
+        this.dataFine = dataFine;
+        this.dipendente = dipendente;
+    }
 }
 

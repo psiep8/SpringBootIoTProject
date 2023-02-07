@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-
 public class DatiUtente {
     private Integer troppoVicino;
     private Integer troppoLontano;
@@ -13,4 +12,6 @@ public class DatiUtente {
     private Integer tempoInattivo;
     private Integer numPauseBrevi;
     private Integer numPauseLunghe;
+
+
 }
