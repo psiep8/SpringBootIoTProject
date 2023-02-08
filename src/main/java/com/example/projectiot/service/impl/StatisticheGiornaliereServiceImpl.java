@@ -41,7 +41,7 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
         Integer numeroVicino = 0;
         Integer numeroLontano = 0;
         StatisticheGiornaliere[] stats;
-        if (LocalDate.now().getDayOfWeek().getValue() == 2) {
+        if (LocalDate.now().getDayOfWeek().getValue() == 5) {
             for (int i = 0; i < 5; i++) {
                 stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i));
                 for (StatisticheGiornaliere ss : stats) {
@@ -68,45 +68,4 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
 
     }
 
-    @Override
-    public void findStatisticheGiornaliereByGiornoAndSave(LocalDate giorno) {
-
-    }
-/*
-    @Override
-    public void findStatisticheGiornaliereByGiornoAndSave(LocalDate giorno) {
-        Integer numeroPauseBreviSettimanali = 0;
-        Integer numeroPauseRiposoSettimanali = 0;
-        Integer numeroAttivo = 0;
-        Integer numeroInattivo = 0;
-        Integer numeroVicino = 0;
-        Integer numeroLontano = 0;
-        StatisticheGiornaliere[] stats = new StatisticheGiornaliere[5];
-        int lung = stats.length;
-        if (LocalDate.now().getDayOfWeek().getValue() == 2) {
-            for (int i = 0; i < lung; i++) {
-                stats[i] = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i));
-            }
-            for (int j = 0; j < lung; j++) {
-                numeroPauseBreviSettimanali += stats[j].getNumeroPauseBreviGiornaliere();
-                numeroPauseRiposoSettimanali += stats[j].getNumeroPauseRiposoGiornaliere();
-                numeroInattivo += stats[j].getInattivoGiornaliero();
-                numeroAttivo += stats[j].getAttivoGiornaliero();
-                numeroLontano += stats[j].getTroppoLontanoGiornaliero();
-                numeroVicino += stats[j].getTroppoVicinoGiornaliero();
-            }
-            StatisticheSettimanali statisticheSettimanali = StatisticheSettimanali.builder()
-                    .dataInizio(LocalDate.now().minusDays(4))
-                    .dataFine(LocalDate.now())
-                    .numeroPauseBreviSettimanali(numeroPauseBreviSettimanali)
-                    .numeroPauseRiposoSettimanali(numeroPauseRiposoSettimanali)
-                    .attivoSettimanale(numeroAttivo)
-                    .inattivoSettimanale(numeroInattivo)
-                    .troppoVicinoSettimanale(numeroVicino)
-                    .troppoLontanoSettimanale(numeroLontano)
-                    .build();
-            statisticheSettimanaliRepository.save(statisticheSettimanali);
-        }
-    }
-*/
 }

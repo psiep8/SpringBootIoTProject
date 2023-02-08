@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Service
 @RequiredArgsConstructor
 public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanaliService {
-    private final StatisticheSettimanaliRepository statisticheSettimanaliRepository;
     private final StatisticheGiornaliereRepository statisticheGiornaliereRepository;
     private final StatisticheMensiliRepository statisticheMensiliRepository;
 
@@ -31,10 +30,9 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
         Integer numeroLontano = 0;
         StatisticheGiornaliere[] stats;
         int dayOfMonth = LocalDate.now().minusMonths(1).lengthOfMonth();
-        if (LocalDate.now().getDayOfMonth() == 7) {
+        if (LocalDate.now().getDayOfMonth() <= 5 && !statisticheMensiliRepository.findAllByMese(LocalDate.now().minusMonths(1).getMonth().toString())) {
             for (int i = 0; i < dayOfMonth; i++) {
                 stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i + 1));
-
                 for (StatisticheGiornaliere ss : stats) {
                     numeroAttivo += ss.getAttivoGiornaliero();
                     numeroPauseRiposoMensili += ss.getNumeroPauseRiposoGiornaliere();

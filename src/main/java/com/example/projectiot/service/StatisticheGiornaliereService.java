@@ -11,7 +11,5 @@ public interface StatisticheGiornaliereService {
 
     void countedStatistiche();
 
-    void findStatisticheGiornaliereByGiornoAndSave(LocalDate giorno);
-
 
 }
