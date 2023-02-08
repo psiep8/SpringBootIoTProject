@@ -12,6 +12,7 @@ public class DatiUtente {
     private Integer tempoInattivo;
     private Integer numPauseBrevi;
     private Integer numPauseLunghe;
+    private Integer ora;
 
 
 }

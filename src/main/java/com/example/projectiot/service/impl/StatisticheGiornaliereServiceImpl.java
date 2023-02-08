@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,22 +19,23 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
     private final StatisticheSettimanaliRepository statisticheSettimanaliRepository;
 
     @Override
-    public void getDatiAlMinuto(DatiUtente datiUtenteMinuto) {
+    public void getDatiOgniOra(DatiUtente datiUtenteOra) {
         StatisticheGiornaliere datiUtenteGiornaliero = StatisticheGiornaliere.builder()
-                .numeroPauseRiposoGiornaliere(datiUtenteMinuto.getNumPauseLunghe())
-                .numeroPauseBreviGiornaliere(datiUtenteMinuto.getNumPauseBrevi())
-                .inattivoGiornaliero(datiUtenteMinuto.getTempoInattivo())
-                .attivoGiornaliero(datiUtenteMinuto.getTempoAttivo())
-                .troppoLontanoGiornaliero(datiUtenteMinuto.getTroppoLontano())
-                .troppoVicinoGiornaliero(datiUtenteMinuto.getTroppoVicino())
+                .numeroPauseRiposoGiornaliere(datiUtenteOra.getNumPauseLunghe())
+                .numeroPauseBreviGiornaliere(datiUtenteOra.getNumPauseBrevi())
+                .inattivoGiornaliero(datiUtenteOra.getTempoInattivo())
+                .attivoGiornaliero(datiUtenteOra.getTempoAttivo())
+                .troppoLontanoGiornaliero(datiUtenteOra.getTroppoLontano())
+                .troppoVicinoGiornaliero(datiUtenteOra.getTroppoVicino())
                 .giorno(LocalDate.now())
+                .ora(datiUtenteOra.getOra())
                 .build();
         statisticheGiornaliereRepository.save(datiUtenteGiornaliero);
 
     }
 
     @Override
-    public void countedStatistiche() {
+    public StatisticheSettimanali countedStatistiche() {
         Integer numeroPauseBreviSettimanali = 0;
         Integer numeroPauseRiposoSettimanali = 0;
         Integer numeroAttivo = 0;
@@ -54,7 +56,7 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
                 }
             }
         }
-        StatisticheSettimanali statisticheSettimanali = StatisticheSettimanali.builder()
+        return StatisticheSettimanali.builder()
                 .dataInizio(LocalDate.now().minusDays(4))
                 .dataFine(LocalDate.now())
                 .numeroPauseBreviSettimanali(numeroPauseBreviSettimanali)
@@ -64,8 +66,17 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
                 .troppoVicinoSettimanale(numeroVicino)
                 .troppoLontanoSettimanale(numeroLontano)
                 .build();
-        statisticheSettimanaliRepository.save(statisticheSettimanali);
 
+    }
+
+    @Override
+    public List<StatisticheGiornaliere> findAll() {
+        return statisticheGiornaliereRepository.findAll();
+    }
+
+    @Override
+    public void saveStatisticheSettimanali(StatisticheSettimanali statisticheSettimanali) {
+        statisticheSettimanaliRepository.save(countedStatistiche());
     }
 
 }

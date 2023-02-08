@@ -12,16 +12,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanaliService {
     private final StatisticheGiornaliereRepository statisticheGiornaliereRepository;
     private final StatisticheMensiliRepository statisticheMensiliRepository;
+    private final StatisticheSettimanaliRepository statisticheSettimanaliRepository;
 
 
     @Override
-    public void findStatisticheGiornaliereByMeseAndSave(Integer month) {
+    public List<StatisticheSettimanali> findAll() {
+        return statisticheSettimanaliRepository.findAll();
+    }
+
+    @Override
+    public StatisticheMensili findStatisticheGiornaliereByMeseAndSave() {
         Integer numeroPauseBreviMensili = 0;
         Integer numeroPauseRiposoMensili = 0;
         Integer numeroAttivo = 0;
@@ -42,18 +49,20 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
                     numeroVicino += ss.getTroppoVicinoGiornaliero();
                 }
             }
-            StatisticheMensili statisticheMensili = StatisticheMensili.builder()
-                    .mese(LocalDate.now().minusMonths(1).getMonth().name())
-                    .numeroPauseBreviMensili(numeroPauseBreviMensili)
-                    .numeroPauseRiposoMensili(numeroPauseRiposoMensili)
-                    .attivoMensile(numeroAttivo)
-                    .inattivoMensile(numeroInattivo)
-                    .troppoVicinoMensile(numeroVicino)
-                    .troppoLontanoMensile(numeroLontano)
-                    .build();
-            statisticheMensiliRepository.save(statisticheMensili);
         }
+        return StatisticheMensili.builder()
+                .mese(LocalDate.now().minusMonths(1).getMonth().name())
+                .numeroPauseBreviMensili(numeroPauseBreviMensili)
+                .numeroPauseRiposoMensili(numeroPauseRiposoMensili)
+                .attivoMensile(numeroAttivo)
+                .inattivoMensile(numeroInattivo)
+                .troppoVicinoMensile(numeroVicino)
+                .troppoLontanoMensile(numeroLontano)
+                .build();
     }
 
-
+    @Override
+    public void saveStatisticheMensili(StatisticheMensili statisticheMensili) {
+        statisticheMensiliRepository.save(findStatisticheGiornaliereByMeseAndSave());
+    }
 }
