@@ -9,12 +9,12 @@ import java.time.LocalDate;
 
 @RestController
 @CrossOrigin("*")
-public class IndexController {
+public class AppController {
 
     private final StatisticheGiornaliereService statisticheGiornaliereService;
     private final StatisticheSettimanaliService statisticheSettimanaliService;
 
-    public IndexController(StatisticheGiornaliereService statisticheGiornaliereService, StatisticheSettimanaliService statisticheSettimanaliService) {
+    public AppController(StatisticheGiornaliereService statisticheGiornaliereService, StatisticheSettimanaliService statisticheSettimanaliService) {
         this.statisticheGiornaliereService = statisticheGiornaliereService;
         this.statisticheSettimanaliService = statisticheSettimanaliService;
     }
@@ -24,18 +24,13 @@ public class IndexController {
         statisticheGiornaliereService.getDatiAlMinuto(postData);
     }
 
-    @GetMapping(value = "/statistiche-settimanali")
-    public void getStatisticheSettimanali() {
-        statisticheGiornaliereService.findStatisticheGiornaliereByGiornoAndSave(LocalDate.now());
-    }
-
     @GetMapping(value = "/statistiche-mensili")
     public void getStatisticheMensili() {
         statisticheSettimanaliService.findStatisticheGiornaliereByMeseAndSave(LocalDate.now().getMonth().getValue());
     }
 
-    @GetMapping(value = "/prova")
-    public void prova() {
+    @GetMapping(value = "/statistiche-settimanali")
+    public void getStatisticheSettimanali() {
         statisticheGiornaliereService.countedStatistiche();
     }
 }
