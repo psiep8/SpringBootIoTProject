@@ -12,5 +12,7 @@ public interface StatisticheGiornaliereRepository extends JpaRepository<Statisti
 
     StatisticheGiornaliere[] getStatisticheGiornaliereByGiorno(LocalDate giorno);
 
+    List<StatisticheGiornaliere> findStatisticheGiornaliereByGiorno(LocalDate giorno);
+
 
 }

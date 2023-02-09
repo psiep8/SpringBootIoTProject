@@ -13,4 +13,7 @@ public interface StatisticheSettimanaliService {
     StatisticheMensili findStatisticheGiornaliereByMeseAndSave();
 
     void saveStatisticheMensili(StatisticheMensili statisticheMensili);
+
+    StatisticheSettimanali getStatSettimanaByGiorno(LocalDate giorno);
+
 }

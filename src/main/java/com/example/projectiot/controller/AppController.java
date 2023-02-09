@@ -14,10 +14,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AppController {
-
     private final StatisticheGiornaliereService statisticheGiornaliereService;
     private final StatisticheSettimanaliService statisticheSettimanaliService;
     private final StatisticheMensiliService statisticheMensiliService;
@@ -32,6 +31,7 @@ public class AppController {
         return statisticheGiornaliereService.findAll();
     }
 
+
     @GetMapping(value = "/statistiche-settimanali")
     public List<StatisticheSettimanali> statisticheSettimanali() {
         return statisticheSettimanaliService.findAll();
@@ -40,6 +40,21 @@ public class AppController {
     @GetMapping(value = "/statistiche-mensili")
     public List<StatisticheMensili> statisticheMensili() {
         return statisticheMensiliService.findAll();
+    }
+
+    @GetMapping(value = "/statistiche-giornaliere-date")
+    public List<StatisticheGiornaliere> getStatisticheGiornaliereByDay(@RequestParam("giorno") LocalDate giorno) {
+        return statisticheGiornaliereService.getStatsByDay(giorno);
+    }
+
+    @GetMapping(value = "/statistica-settimanale-date")
+    public StatisticheSettimanali getStatisticaSettimanaleByDay(@RequestParam("giorno") LocalDate giorno) {
+        return statisticheSettimanaliService.getStatSettimanaByGiorno(giorno);
+    }
+
+    @GetMapping(value = "/statistica-mensile-date")
+    public StatisticheMensili getStatisticaMensileByMese(@RequestParam("mese") String mese) {
+        return statisticheMensiliService.getStatsByMese(mese);
     }
 
     @GetMapping(value = "/stat-mensile")

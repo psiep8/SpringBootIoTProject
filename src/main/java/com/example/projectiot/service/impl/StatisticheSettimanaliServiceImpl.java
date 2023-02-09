@@ -36,8 +36,9 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
         Integer numeroVicino = 0;
         Integer numeroLontano = 0;
         StatisticheGiornaliere[] stats;
+        StatisticheMensili result = null;
         int dayOfMonth = LocalDate.now().minusMonths(1).lengthOfMonth();
-        if (LocalDate.now().getDayOfMonth() <= 5 && !statisticheMensiliRepository.findAllByMese(LocalDate.now().minusMonths(1).getMonth().toString())) {
+        if (LocalDate.now().getDayOfMonth() <= 10 && statisticheMensiliRepository.countAllByMese(LocalDate.now().minusMonths(1).getMonth().toString()) == 0) {
             for (int i = 0; i < dayOfMonth; i++) {
                 stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i + 1));
                 for (StatisticheGiornaliere ss : stats) {
@@ -49,20 +50,32 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
                     numeroVicino += ss.getTroppoVicinoGiornaliero();
                 }
             }
+            return StatisticheMensili.builder()
+                    .mese(LocalDate.now().minusMonths(1).getMonth().name())
+                    .numeroPauseBreviMensili(numeroPauseBreviMensili)
+                    .numeroPauseRiposoMensili(numeroPauseRiposoMensili)
+                    .attivoMensile(numeroAttivo)
+                    .inattivoMensile(numeroInattivo)
+                    .troppoVicinoMensile(numeroVicino)
+                    .troppoLontanoMensile(numeroLontano)
+                    .build();
         }
-        return StatisticheMensili.builder()
-                .mese(LocalDate.now().minusMonths(1).getMonth().name())
-                .numeroPauseBreviMensili(numeroPauseBreviMensili)
-                .numeroPauseRiposoMensili(numeroPauseRiposoMensili)
-                .attivoMensile(numeroAttivo)
-                .inattivoMensile(numeroInattivo)
-                .troppoVicinoMensile(numeroVicino)
-                .troppoLontanoMensile(numeroLontano)
-                .build();
+        return result;
     }
 
     @Override
     public void saveStatisticheMensili(StatisticheMensili statisticheMensili) {
         statisticheMensiliRepository.save(findStatisticheGiornaliereByMeseAndSave());
+    }
+
+    @Override
+    public StatisticheSettimanali getStatSettimanaByGiorno(LocalDate giorno) {
+        List<StatisticheSettimanali> listStats = findAll();
+        for (StatisticheSettimanali ss : listStats) {
+            if (giorno.isAfter(ss.getDataInizio()) && giorno.isBefore(ss.getDataFine())) {
+                return ss;
+            }
+        }
+        return null;
     }
 }

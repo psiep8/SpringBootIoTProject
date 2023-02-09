@@ -8,4 +8,6 @@ import java.util.List;
 public interface StatisticheMensiliService {
     List<StatisticheMensili> findAll();
 
+    StatisticheMensili getStatsByMese(String mese);
+
 }

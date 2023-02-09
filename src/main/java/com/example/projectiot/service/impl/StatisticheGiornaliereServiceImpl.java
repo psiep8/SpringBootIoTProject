@@ -7,6 +7,7 @@ import com.example.projectiot.repository.StatisticheGiornaliereRepository;
 import com.example.projectiot.repository.StatisticheSettimanaliRepository;
 import com.example.projectiot.service.StatisticheGiornaliereService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -31,7 +32,10 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
                 .ora(datiUtenteOra.getOra())
                 .build();
         statisticheGiornaliereRepository.save(datiUtenteGiornaliero);
+    }
 
+    public List<StatisticheGiornaliere> getStatsByDay(LocalDate giorno) {
+        return statisticheGiornaliereRepository.findStatisticheGiornaliereByGiorno(giorno);
     }
 
     @Override

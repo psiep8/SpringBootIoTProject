@@ -4,5 +4,7 @@ import com.example.projectiot.entity.StatisticheMensili;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StatisticheMensiliRepository extends JpaRepository<StatisticheMensili, Long> {
-    Boolean findAllByMese(String mese);
+    Integer countAllByMese(String mese);
+
+    StatisticheMensili getStatisticheMensiliByMese(String mese);
 }

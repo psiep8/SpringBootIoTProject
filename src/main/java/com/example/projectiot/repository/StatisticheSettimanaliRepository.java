@@ -11,4 +11,6 @@ import java.time.LocalDate;
 @Repository
 public interface StatisticheSettimanaliRepository extends JpaRepository<StatisticheSettimanali, Long> {
 
+
+
 }
