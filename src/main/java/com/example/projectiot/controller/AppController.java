@@ -77,9 +77,20 @@ public class AppController {
     public void saveStatisticheSettimanali(@RequestBody StatisticheSettimanali statisticheSettimanali) {
         statisticheGiornaliereService.saveStatisticheSettimanali(statisticheSettimanali);
     }
-/////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////
     @GetMapping(value = "/statistiche-giornaliere-date-frontend")
     public List<DatiPieDto> getStatisticheGiornaliereByDay2(@RequestParam("giorno") LocalDate giorno) {
         return statisticheGiornaliereService.getStatsByDay2(giorno);
+    }
+
+    @GetMapping(value = "/statistiche-settimanali-date-frontend")
+    public List<DatiPieDto> getStatisticheSettimanaliByDay2(@RequestParam("giorno") LocalDate giorno) {
+        return statisticheSettimanaliService.getStatsByWeek2(giorno);
+    }
+
+    @GetMapping(value = "/statistiche-mensili-date-frontend")
+    public List<DatiPieDto> getStatisticheMensiliByDay2(@RequestParam("mese") String mese) {
+        return statisticheMensiliService.getStatsByMonth2(mese);
     }
 }

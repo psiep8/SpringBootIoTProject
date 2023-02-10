@@ -1,17 +1,19 @@
 package com.example.projectiot.service.impl;
 
+import com.example.projectiot.dto.DatiPieDto;
 import com.example.projectiot.entity.StatisticheGiornaliere;
 import com.example.projectiot.entity.StatisticheMensili;
 import com.example.projectiot.entity.StatisticheSettimanali;
 import com.example.projectiot.repository.StatisticheGiornaliereRepository;
 import com.example.projectiot.repository.StatisticheMensiliRepository;
 import com.example.projectiot.repository.StatisticheSettimanaliRepository;
-import com.example.projectiot.service.StatisticheMensiliService;
+import com.example.projectiot.service.StatisticheGiornaliereService;
 import com.example.projectiot.service.StatisticheSettimanaliService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -72,11 +74,35 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
     public StatisticheSettimanali getStatSettimanaByGiorno(LocalDate giorno) {
         List<StatisticheSettimanali> listStats = findAll();
         for (StatisticheSettimanali ss : listStats) {
-            if ((giorno.isAfter(ss.getDataInizio()) || giorno.isEqual(ss.getDataInizio())) && (giorno.isBefore(ss.getDataFine()) || giorno.isEqual(ss.getDataFine())))
-            {
+            if ((giorno.isAfter(ss.getDataInizio()) || giorno.isEqual(ss.getDataInizio())) && (giorno.isBefore(ss.getDataFine()) || giorno.isEqual(ss.getDataFine()))) {
                 return ss;
             }
         }
         return null;
+    }
+
+    @Override
+    public List<DatiPieDto> getStatsByWeek2(LocalDate giorno) {//pie
+
+        StatisticheSettimanali statisticheSettimanali = getStatSettimanaByGiorno(giorno);
+        List<DatiPieDto> risultato = new LinkedList<>();
+        risultato.add(DatiPieDto.builder()
+                .name("Attivo giornaliero")
+                .value(statisticheSettimanali.getAttivoSettimanale())
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .value(statisticheSettimanali.getInattivoSettimanale())
+                .name("Inattivo giornaliero")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .value(statisticheSettimanali.getTroppoLontanoSettimanale())
+                .name("Troppo lontano")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Troppo vicino")
+                .value(statisticheSettimanali.getTroppoVicinoSettimanale())
+                .build());
+
+        return risultato;
     }
 }
