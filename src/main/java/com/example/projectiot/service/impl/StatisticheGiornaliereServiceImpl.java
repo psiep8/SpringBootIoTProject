@@ -118,4 +118,6 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
         statisticheSettimanaliRepository.save(countedStatistiche());
     }
 
+    
+
 }

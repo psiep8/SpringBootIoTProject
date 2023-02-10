@@ -78,7 +78,7 @@ public class AppController {
         statisticheGiornaliereService.saveStatisticheSettimanali(statisticheSettimanali);
     }
 /////////////////////////////////////////////////
-    @GetMapping(value = "/statistiche-giornaliere-date-prova")
+    @GetMapping(value = "/statistiche-giornaliere-date-frontend")
     public List<DatiPieDto> getStatisticheGiornaliereByDay2(@RequestParam("giorno") LocalDate giorno) {
         return statisticheGiornaliereService.getStatsByDay2(giorno);
     }
