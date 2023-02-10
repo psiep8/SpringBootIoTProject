@@ -72,7 +72,8 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
     public StatisticheSettimanali getStatSettimanaByGiorno(LocalDate giorno) {
         List<StatisticheSettimanali> listStats = findAll();
         for (StatisticheSettimanali ss : listStats) {
-            if (giorno.isAfter(ss.getDataInizio()) && giorno.isBefore(ss.getDataFine())) {
+            if ((giorno.isAfter(ss.getDataInizio()) || giorno.isEqual(ss.getDataInizio())) && (giorno.isBefore(ss.getDataFine()) || giorno.isEqual(ss.getDataFine())))
+            {
                 return ss;
             }
         }

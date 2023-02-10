@@ -47,19 +47,18 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
         Integer numeroVicino = 0;
         Integer numeroLontano = 0;
         StatisticheGiornaliere[] stats;
-        if (LocalDate.now().getDayOfWeek().getValue() == 5) {
-            for (int i = 0; i < 5; i++) {
-                stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i));
-                for (StatisticheGiornaliere ss : stats) {
-                    numeroAttivo += ss.getAttivoGiornaliero();
-                    numeroPauseRiposoSettimanali += ss.getNumeroPauseRiposoGiornaliere();
-                    numeroInattivo += ss.getInattivoGiornaliero();
-                    numeroPauseBreviSettimanali += ss.getNumeroPauseBreviGiornaliere();
-                    numeroLontano += ss.getTroppoLontanoGiornaliero();
-                    numeroVicino += ss.getTroppoVicinoGiornaliero();
-                }
+        for (int i = 4; i >= 0; i--) {
+            stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i));
+            for (StatisticheGiornaliere ss : stats) {
+                numeroAttivo += ss.getAttivoGiornaliero();
+                numeroPauseRiposoSettimanali += ss.getNumeroPauseRiposoGiornaliere();
+                numeroInattivo += ss.getInattivoGiornaliero();
+                numeroPauseBreviSettimanali += ss.getNumeroPauseBreviGiornaliere();
+                numeroLontano += ss.getTroppoLontanoGiornaliero();
+                numeroVicino += ss.getTroppoVicinoGiornaliero();
             }
         }
+
         return StatisticheSettimanali.builder()
                 .dataInizio(LocalDate.now().minusDays(4))
                 .dataFine(LocalDate.now())
