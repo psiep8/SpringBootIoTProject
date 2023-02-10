@@ -12,6 +12,8 @@ public interface StatisticheGiornaliereService {
 
     void getDatiOgniOra(DatiUtente du);
 
+    List<DatiPieDto> getStatsByDay3(LocalDate giorno);
+
     StatisticheSettimanali countedStatistiche();
 
     List<StatisticheGiornaliere> findAll();

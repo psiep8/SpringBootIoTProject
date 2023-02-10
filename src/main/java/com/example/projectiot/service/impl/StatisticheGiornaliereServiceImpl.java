@@ -8,7 +8,6 @@ import com.example.projectiot.repository.StatisticheGiornaliereRepository;
 import com.example.projectiot.repository.StatisticheSettimanaliRepository;
 import com.example.projectiot.service.StatisticheGiornaliereService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -41,7 +40,7 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
     }
 
     @Override
-    public List<DatiPieDto> getStatsByDay2(LocalDate giorno) {
+    public List<DatiPieDto> getStatsByDay2(LocalDate giorno) {//pie
 
         List<StatisticheGiornaliere> lista = statisticheGiornaliereRepository.findStatisticheGiornaliereByGiorno(giorno);
         List<DatiPieDto> risultato = new LinkedList<>();
@@ -70,6 +69,40 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
             risultato.get(3).setValue(risultato.get(3).getValue() + stat.getNumeroPauseRiposoGiornaliere());
             risultato.get(4).setValue(risultato.get(4).getValue() + stat.getTroppoLontanoGiornaliero());
             risultato.get(5).setValue(risultato.get(5).getValue() + stat.getTroppoVicinoGiornaliero());
+        }
+        return risultato;
+    }
+
+    @Override
+    public List<DatiPieDto> getStatsByDay3(LocalDate giorno) {//line
+
+        List<StatisticheGiornaliere> lista = statisticheGiornaliereRepository.findStatisticheGiornaliereByGiorno(giorno);
+        List<DatiPieDto> risultato = new LinkedList<>();
+        risultato.add(DatiPieDto.builder()
+                .name("Attivo giornaliero")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Inattivo giornaliero")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Numero pause brevi")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Numero pause riposo")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Troppo lontano")
+                .build());
+        risultato.add(DatiPieDto.builder()
+                .name("Troppo vicino")
+                .build());
+        for (StatisticheGiornaliere stat : lista) {
+            risultato.get(0).setValue(risultato.get(0).getValue() + stat.getAttivoGiornaliero()/60);
+            risultato.get(1).setValue(risultato.get(1).getValue() + stat.getInattivoGiornaliero()/60);
+            risultato.get(2).setValue(risultato.get(2).getValue() + stat.getNumeroPauseBreviGiornaliere());
+            risultato.get(3).setValue(risultato.get(3).getValue() + stat.getNumeroPauseRiposoGiornaliere());
+            risultato.get(4).setValue(risultato.get(4).getValue() + stat.getTroppoLontanoGiornaliero()/60);
+            risultato.get(5).setValue(risultato.get(5).getValue() + stat.getTroppoVicinoGiornaliero()/60);
         }
         return risultato;
     }

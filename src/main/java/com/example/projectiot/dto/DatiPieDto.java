@@ -9,6 +9,6 @@ import java.time.LocalDate;
 @Builder
 public class DatiPieDto {
     private String name;
-    private int value;
+    private double value;
     private int value2;
 }
