@@ -38,7 +38,7 @@ public class StatisticheSettimanaliServiceImpl implements StatisticheSettimanali
         StatisticheGiornaliere[] stats;
         StatisticheMensili result = null;
         int dayOfMonth = LocalDate.now().minusMonths(1).lengthOfMonth();
-        if (LocalDate.now().getDayOfMonth() <= 10 && statisticheMensiliRepository.countAllByMese(LocalDate.now().minusMonths(1).getMonth().toString()) == 0) {
+        if (LocalDate.now().getDayOfMonth() <= 5 && statisticheMensiliRepository.countAllByMese(LocalDate.now().minusMonths(1).getMonth().toString()) == 0) {
             for (int i = 0; i < dayOfMonth; i++) {
                 stats = statisticheGiornaliereRepository.getStatisticheGiornaliereByGiorno(LocalDate.now().minusDays(i + 1));
                 for (StatisticheGiornaliere ss : stats) {
