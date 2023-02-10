@@ -1,5 +1,6 @@
 package com.example.projectiot.service;
 
+import com.example.projectiot.dto.DatiPieDto;
 import com.example.projectiot.dto.DatiUtente;
 import com.example.projectiot.entity.StatisticheGiornaliere;
 import com.example.projectiot.entity.StatisticheSettimanali;
@@ -18,6 +19,7 @@ public interface StatisticheGiornaliereService {
     void saveStatisticheSettimanali(StatisticheSettimanali statisticheSettimanali);
 
     List<StatisticheGiornaliere> getStatsByDay(LocalDate giorno);
+    List<DatiPieDto> getStatsByDay2(LocalDate giorno);
 
 
 }

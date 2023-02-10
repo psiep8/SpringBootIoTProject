@@ -31,10 +31,10 @@ public class StatisticheGiornaliere implements Serializable {
     private Integer troppoLontanoGiornaliero;
 
     @Column(name = "num_pause_brevi")
-    private Integer numeroPauseBreviGiornaliere;
+    private int numeroPauseBreviGiornaliere;
 
     @Column(name = "num_pause_riposo")
-    private Integer numeroPauseRiposoGiornaliere;
+    private int numeroPauseRiposoGiornaliere;
 
     @Column(name = "giorno")
     private LocalDate giorno;

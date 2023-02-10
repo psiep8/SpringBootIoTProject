@@ -1,5 +1,6 @@
 package com.example.projectiot.controller;
 
+import com.example.projectiot.dto.DatiPieDto;
 import com.example.projectiot.dto.DatiUtente;
 import com.example.projectiot.entity.StatisticheGiornaliere;
 import com.example.projectiot.entity.StatisticheMensili;
@@ -75,5 +76,10 @@ public class AppController {
     @PostMapping(value = "/save-statistiche-settimanali")
     public void saveStatisticheSettimanali(@RequestBody StatisticheSettimanali statisticheSettimanali) {
         statisticheGiornaliereService.saveStatisticheSettimanali(statisticheSettimanali);
+    }
+/////////////////////////////////////////////////
+    @GetMapping(value = "/statistiche-giornaliere-date-prova")
+    public List<DatiPieDto> getStatisticheGiornaliereByDay2(@RequestParam("giorno") LocalDate giorno) {
+        return statisticheGiornaliereService.getStatsByDay2(giorno);
     }
 }
