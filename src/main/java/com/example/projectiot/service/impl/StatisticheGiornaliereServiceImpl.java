@@ -63,12 +63,12 @@ public class StatisticheGiornaliereServiceImpl implements StatisticheGiornaliere
                 .name("Troppo vicino")
                 .build());
         for (StatisticheGiornaliere stat : lista) {
-            risultato.get(0).setValue(risultato.get(0).getValue() + stat.getAttivoGiornaliero());
-            risultato.get(1).setValue(risultato.get(1).getValue() + stat.getInattivoGiornaliero());
+            risultato.get(0).setValue(risultato.get(0).getValue() + stat.getAttivoGiornaliero()/60);
+            risultato.get(1).setValue(risultato.get(1).getValue() + stat.getInattivoGiornaliero()/60);
             risultato.get(2).setValue(risultato.get(2).getValue() + stat.getNumeroPauseBreviGiornaliere());
             risultato.get(3).setValue(risultato.get(3).getValue() + stat.getNumeroPauseRiposoGiornaliere());
-            risultato.get(4).setValue(risultato.get(4).getValue() + stat.getTroppoLontanoGiornaliero());
-            risultato.get(5).setValue(risultato.get(5).getValue() + stat.getTroppoVicinoGiornaliero());
+            risultato.get(4).setValue(risultato.get(4).getValue() + stat.getTroppoLontanoGiornaliero()/60);
+            risultato.get(5).setValue(risultato.get(5).getValue() + stat.getTroppoVicinoGiornaliero()/60);
         }
         return risultato;
     }
